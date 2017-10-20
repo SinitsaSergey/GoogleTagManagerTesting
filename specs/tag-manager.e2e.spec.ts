@@ -1,62 +1,67 @@
 import {describe} from "selenium-webdriver/testing";
-import {GoogleAccountPageObject} from "../page-objects/google-account.page-object";
+import {GoogleAuthorizationPageObject} from "../page-objects/google-account.page-object";
 import {browser} from 'protractor';
 import {TagManagerPageObject} from "../page-objects/tag-manager.page-object";
 
+const TAG_MANAGER_URL = 'https://tagmanager.google.com/#/admin/accounts/create';
 const GOOGLE_LOGIN = 'testing999444@gmail.com';
 const GOOGLE_PASSWORD = 'test999444';
 const ACCOUNT_NAME = 'My Company';
 const CONTAINER_NAME = "My Site";
 
-describe('Interaction with service Google Task Manager', () => {
+describe('Взаимодействие со службой Google Tag Manager', () => {
 
-    let accountPage = new GoogleAccountPageObject();
-    let tagManagerPage = new TagManagerPageObject();
+    let googleAccount = new GoogleAuthorizationPageObject();
+    let tagManager = new TagManagerPageObject();
 
     beforeAll(() => {
         browser.waitForAngularEnabled(false);
-        browser.get('https://tagmanager.google.com/#/admin/accounts/create');
-        accountPage.inputIdentifier(GOOGLE_LOGIN);
-        accountPage.clickIdentifierNext();
-        browser.sleep(2000);
-        accountPage.inputPassword(GOOGLE_PASSWORD);
-        accountPage.clickPasswordNext();
-        browser.sleep(2000);
+        browser.get(TAG_MANAGER_URL);
+        googleAccount.authorization(GOOGLE_LOGIN, GOOGLE_PASSWORD);
         browser.waitForAngularEnabled(true);
     });
 
-    it('check account name field is visible abd available', () => {
-        expect(tagManagerPage.accountNameField.isDisplayed()).toBe(true);
-        expect(tagManagerPage.accountNameField.isEnabled()).toBe(true);
-        expect(tagManagerPage.createButton.isPresent()).toBe(true);
-        expect(tagManagerPage.createButton.isEnabled()).toBe(false);
+    it('авторизация прошла успешно, текущий URL-адрес совпадает с целевым', () => {
+        expect(browser.getCurrentUrl()).toEqual(TAG_MANAGER_URL);
     });
 
-    it('input account identifier and check that it is visible', () => {
-        expect(tagManagerPage.accountNameField.sendKeys(ACCOUNT_NAME));
-        expect(tagManagerPage.accountNameField.getAttribute('value')).toEqual(ACCOUNT_NAME);
+
+    it('поле Название аккаунта отображается и доступно', () => {
+        expect(tagManager.accountNameField.isDisplayed()).toBe(true, 'поле Название аккаунта не отображается');
+        expect(tagManager.accountNameField.isEnabled()).toBe(true, 'поле Название аккаунта недоступно');
+        expect(tagManager.createButton.isEnabled()).toBe(false, 'кнопка Создать доступна');
     });
 
-    it('select checkbox and check that it is selected', () => {
-        expect(tagManagerPage.shareDataCheckBox.click());
-        expect(tagManagerPage.isSharedDataCheckboxSelected()).toBe(true);
+    it('введено значение в поле Название аккаунта и оно отображается', () => {
+        expect(tagManager.accountNameField.sendKeys(ACCOUNT_NAME));
+        expect(tagManager.accountNameField.getAttribute('value')).toEqual(ACCOUNT_NAME, 'значение в поле Название аккаунта не отображается');
+        expect(tagManager.createButton.isEnabled()).toBe(false, 'кнопка Создать доступна');
     });
 
-    it('click next button and check that container name field is visible and available', () => {
-        expect(tagManagerPage.nextButton.click());
-        expect(tagManagerPage.containerNameField.isDisplayed()).toBe(true);
-        expect(tagManagerPage.containerNameField.isEnabled()).toBe(true);
+    it('выбран чекбокс Передавать анонимные данные', () => {
+        expect(tagManager.shareDataCheckBox.click());
+        expect(tagManager.isSharedDataCheckboxSelected()).toBe(true, 'чекбокс Передавать анонимные данные не выбран');
+        expect(tagManager.createButton.isEnabled()).toBe(false, 'кнопка Создать доступна');
     });
 
-    it('input container name and check that it is visible', () => {
-        expect(tagManagerPage.containerNameField.sendKeys(CONTAINER_NAME));
-        expect(tagManagerPage.containerNameField.getAttribute('value')).toEqual(CONTAINER_NAME);
+    it('нажата кнопка Далее, поле Название контейнера отображается и доступно', () => {
+        expect(tagManager.nextButton.click());
+        expect(tagManager.containerNameField.isDisplayed()).toBe(true, 'поле Название контейнера не отображается');
+        expect(tagManager.containerNameField.isEnabled()).toBe(true, 'поле Название контейнера недоступно');
+        expect(tagManager.createButton.isEnabled()).toBe(false, 'кнопка Создать доступна');
     });
 
-    it('click cancel button and check that account name field is cleared' +
-        'and container name field is  not visible', () => {
-        expect(tagManagerPage.cancelButton.click());
-        expect(tagManagerPage.accountNameField.getAttribute('value')).toEqual('');
-        expect(tagManagerPage.containerNameField.isDisplayed()).toBe(false);
+    it('введено значение в поле Название контейнера и оно отображается', () => {
+        expect(tagManager.containerNameField.sendKeys(CONTAINER_NAME));
+        expect(tagManager.containerNameField.getAttribute('value')).toEqual(CONTAINER_NAME, 'значение в поле Название контейнера не отображается');
+        expect(tagManager.createButton.isEnabled()).toBe(false, 'кнопка Создать доступна');
+    });
+
+    it('нажата кнопка Отмена, поле Название аккаунта очищено' +
+        'поле Название контейнера не отображается', () => {
+        expect(tagManager.cancelButton.click());
+        expect(tagManager.accountNameField.getAttribute('value')).toEqual('', 'поле Название аккаунта не очищено');
+        expect(tagManager.containerNameField.isDisplayed()).toBe(false, 'поле Название контейнера отображается');
+        expect(tagManager.createButton.isEnabled()).toBe(false, 'кнопка Создать доступна');
     })
 });

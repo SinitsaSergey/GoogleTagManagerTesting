@@ -1,26 +1,25 @@
-import {$} from "protractor";
+import {$, browser} from "protractor";
 
-export class GoogleAccountPageObject {
+/*
+* Класс, описывающий объект страницы авторизации Google
+ */
+export class GoogleAuthorizationPageObject {
 
-    fieldAccountId = $('#identifierId');
-    buttonIdentifierNext = $('#identifierNext');
-    fieldPassword = $("[name='password']");
-    buttonPasswordNext = $('#passwordNext');
+    private accountIdField = $('#identifierId');
+    private identifierNextButton = $('#identifierNext');
+    private passwordField = $("[name='password']");
+    private passwordNextButton = $('#passwordNext');
 
-    inputIdentifier (identifier: string) {
-        return this.fieldAccountId.sendKeys(identifier);
+    /*
+    * Авторизация аккаунта Google
+    * login и password - логин и пароль пользователя Google
+    */
+    authorization(login, password) {
+        this.accountIdField.sendKeys(login);
+        this.identifierNextButton.click();
+        browser.sleep(2000);
+        this.passwordField.sendKeys(password);
+        this.passwordNextButton.click();
+        browser.sleep(2000);
     }
-
-    clickIdentifierNext () {
-        return this.buttonIdentifierNext.click();
-    }
-
-    inputPassword (password: string) {
-        return this.fieldPassword.sendKeys(password);
-    }
-
-    clickPasswordNext () {
-        return this.buttonPasswordNext.click();
-    }
-
 }

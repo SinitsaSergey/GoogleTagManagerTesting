@@ -8,7 +8,8 @@ export let config: Config = {
     specs: ['./specs/tag-manager.e2e.spec.js'],
     seleniumAddress: 'http://localhost:4444/wd/hub',
     onPrepare() {
-        browser.driver.manage().window().maximize()},
+        browser.driver.manage().window().maximize()
+    },
     allScriptsTimeout: 60000,
     jasmineNodeOpts: {
         defaultTimeoutInterval: 60000,
