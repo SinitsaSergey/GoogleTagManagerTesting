@@ -12,9 +12,9 @@ export class GoogleAuthorizationPageObject {
 
     /*
     * Авторизация аккаунта Google
-    * login и password - логин и пароль пользователя Google
+    * authorize и password - логин и пароль пользователя Google
     */
-    authorization(login, password) {
+    authorize(login, password) {
         this.accountIdField.sendKeys(login);
         this.identifierNextButton.click();
         browser.sleep(2000);
