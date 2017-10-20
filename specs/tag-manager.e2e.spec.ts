@@ -26,9 +26,9 @@ describe('Interaction with service Google Task Manager', () => {
     });
 
     it('check account name field is visible abd available', () => {
-        expect(tagManagerPage.accountNameField.isDisplayed());
-        expect(tagManagerPage.accountNameField.isEnabled());
-        expect(tagManagerPage.createButton.isPresent());
+        expect(tagManagerPage.accountNameField.isDisplayed()).toBe(true);
+        expect(tagManagerPage.accountNameField.isEnabled()).toBe(true);
+        expect(tagManagerPage.createButton.isPresent()).toBe(true);
         expect(tagManagerPage.createButton.isEnabled()).toBe(false);
     });
 
@@ -44,8 +44,8 @@ describe('Interaction with service Google Task Manager', () => {
 
     it('click next button and check that container name field is visible and available', () => {
         expect(tagManagerPage.nextButton.click());
-        expect(tagManagerPage.containerNameField.isDisplayed());
-        expect(tagManagerPage.containerNameField.isEnabled());
+        expect(tagManagerPage.containerNameField.isDisplayed()).toBe(true);
+        expect(tagManagerPage.containerNameField.isEnabled()).toBe(true);
     });
 
     it('input container name and check that it is visible', () => {
