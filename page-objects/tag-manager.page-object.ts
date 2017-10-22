@@ -16,7 +16,7 @@ export class TagManagerPageObject {
 
     /*
     * Проверка выбран ли чекбокс "Передавать анонимные данные"
-    * return true если чекбокс выбран
+    * return Promise<boolean>
      */
     isSharedDataCheckboxSelected() {
        return this.shareDataCheckBox.getAttribute('class')
