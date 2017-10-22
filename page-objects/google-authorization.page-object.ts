@@ -1,7 +1,7 @@
 import {$, browser} from "protractor";
 
 /*
-* Класс, описывающий объект страницы авторизации Google
+* класс страницы авторизации Google
  */
 export class GoogleAuthorizationPageObject {
 
@@ -12,7 +12,7 @@ export class GoogleAuthorizationPageObject {
 
     /*
     * Авторизация аккаунта Google
-    * authorize и password - логин и пароль пользователя Google
+    * login и password - логин и пароль пользователя Google
     */
     authorize(login, password) {
         this.accountIdField.sendKeys(login);

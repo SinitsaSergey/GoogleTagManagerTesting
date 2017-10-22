@@ -1,7 +1,7 @@
 import {$, by} from 'protractor';
 
 /*
-* Класс, описывающий объект страницы Google Tag Manager
+* класс страницы Google Tag Manager
  */
 export class TagManagerPageObject {
 
@@ -12,7 +12,7 @@ export class TagManagerPageObject {
     nextButton = this.rootElement.element(by.cssContainingText('button','Далее'));
     createButton = this.rootElement.element(by.cssContainingText('button','Создать'));
     containerNameField = this.rootElement.$("[name='form.container.data.name']");
-    cancelButton = this.rootElement.element(by.cssContainingText('button','Отмена'));
+    cancelButton = this.rootElement.element(by.cssContainingText('button','Отменаs'));
 
     /*
     * Проверка выбран ли чекбокс "Передавать анонимные данные"
