@@ -12,7 +12,8 @@ export class GoogleAuthenticationPageObject {
 
     /*
     * аутентификация в Google
-    * login и password - логин и пароль пользователя Google
+    * @param login - Google account identifier
+    * @param password - Google password
     */
     authenticate(login, password) {
         this.accountIdField.sendKeys(login);
