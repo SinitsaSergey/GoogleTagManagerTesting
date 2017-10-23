@@ -1,20 +1,22 @@
 import {$, browser} from "protractor";
 
-/*
-* класс страницы аутентификации Google
+/**
+ *
+ * класс страницы аутентификации Google
  */
-export class GoogleAuthenticationPageObject {
+export class GoogleAuthentication {
 
     private accountIdField = $('#identifierId');
     private identifierNextButton = $('#identifierNext');
     private passwordField = $("[name='password']");
     private passwordNextButton = $('#passwordNext');
 
-    /*
-    * аутентификация в Google
-    * @param login - Google account identifier
-    * @param password - Google password
-    */
+    /**
+     *
+     * аутентификация в Google
+     * @param login - Google account identifier
+     * @param password - Google password
+     */
     authenticate(login, password) {
         this.accountIdField.sendKeys(login);
         this.identifierNextButton.click();

@@ -1,7 +1,7 @@
 import {describe} from "selenium-webdriver/testing";
-import {GoogleAuthenticationPageObject} from "../page-objects/google-authentication.page-object";
+import {GoogleAuthentication} from "../page-objects/google-authentication";
 import {browser} from 'protractor';
-import {TagManagerPageObject} from "../page-objects/tag-manager.page-object";
+import {TagManager} from "../page-objects/tag-manager";
 
 const TAG_MANAGER_URL = 'https://tagmanager.google.com/#/admin/accounts/create';
 const GOOGLE_LOGIN = 'testing999444@gmail.com';
@@ -9,14 +9,15 @@ const GOOGLE_PASSWORD = 'test999444';
 const ACCOUNT_NAME = 'My Company';
 const CONTAINER_NAME = "My Site";
 
-/*
-* beforeAll - выполняется вход в аккаунт Google
-* Проверка недоступности кнопки Создать проверяется на каждом этапе
+/**
+ *
+ * beforeAll - выполняется вход в аккаунт Google
+ * Проверка недоступности кнопки Создать проверяется на каждом этапе
  */
 describe('Взаимодействие со службой Google Tag Manager', () => {
 
-    let googleAccount = new GoogleAuthenticationPageObject();
-    let tagManager = new TagManagerPageObject();
+    let googleAccount = new GoogleAuthentication();
+    let tagManager = new TagManager();
 
     beforeAll(() => {
         browser.waitForAngularEnabled(false);
