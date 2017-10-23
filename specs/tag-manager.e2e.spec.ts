@@ -1,5 +1,5 @@
 import {describe} from "selenium-webdriver/testing";
-import {GoogleAuthorizationPageObject} from "../page-objects/google-authorization.page-object";
+import {GoogleAuthenticationPageObject} from "../page-objects/google-authentication.page-object";
 import {browser} from 'protractor';
 import {TagManagerPageObject} from "../page-objects/tag-manager.page-object";
 
@@ -15,17 +15,17 @@ const CONTAINER_NAME = "My Site";
  */
 describe('Взаимодействие со службой Google Tag Manager', () => {
 
-    let googleAccount = new GoogleAuthorizationPageObject();
+    let googleAccount = new GoogleAuthenticationPageObject();
     let tagManager = new TagManagerPageObject();
 
     beforeAll(() => {
         browser.waitForAngularEnabled(false);
         browser.get(TAG_MANAGER_URL);
-        googleAccount.authorize(GOOGLE_LOGIN, GOOGLE_PASSWORD);
+        googleAccount.authenticate(GOOGLE_LOGIN, GOOGLE_PASSWORD);
         browser.waitForAngularEnabled(true);
     });
 
-    it('авторизация прошла успешно, текущий URL-адрес совпадает с целевым', () => {
+    it('аутентификация прошла успешно, текущий URL-адрес совпадает с целевым', () => {
         expect(browser.getCurrentUrl()).toEqual(TAG_MANAGER_URL);
     });
 

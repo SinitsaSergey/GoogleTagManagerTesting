@@ -1,9 +1,9 @@
 import {$, browser} from "protractor";
 
 /*
-* класс страницы авторизации Google
+* класс страницы аутентификации Google
  */
-export class GoogleAuthorizationPageObject {
+export class GoogleAuthenticationPageObject {
 
     private accountIdField = $('#identifierId');
     private identifierNextButton = $('#identifierNext');
@@ -11,10 +11,10 @@ export class GoogleAuthorizationPageObject {
     private passwordNextButton = $('#passwordNext');
 
     /*
-    * Авторизация аккаунта Google
+    * аутентификация в Google
     * login и password - логин и пароль пользователя Google
     */
-    authorize(login, password) {
+    authenticate(login, password) {
         this.accountIdField.sendKeys(login);
         this.identifierNextButton.click();
         browser.sleep(2000);
